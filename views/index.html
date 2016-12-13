@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Logomat 3000</title>
+    <meta name="description" content="Wörter finden leicht gemacht">
+    <link id="favicon" rel="icon" href="https://gomix.com/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.5.5/css/tachyons.min.css"/>
+  </head>
+  <body class="helvetica">
+    
+    <header>
+      <span style="font-size: 7pt;" class="absolute right-1 top-1 light-silver">by samuel.z.bach@gmail.com</span>
+      <h1 class="tc light-green mt4">Logomat 3000</h1>
+    </header>
+
+    <main class="flex flex-row justify-between mt4">
+      <div class=""></div>
+      <div class="">
+        <input id="search-box" type="text" autofocus
+        class="ba b--light-green bw1 br2 pa1" style="outline: none;"
+        maxlength="100" placeholder="Such mir was feines"
+        onkeyup="search()">
+        
+        <div class="mt3 ml3">
+          <label>
+            <input type="radio" onclick="search()" name="position" value="start" class="">
+            Wortanfang
+          </label><br>
+          <label>
+            <input type="radio" onclick="search()" name="position" value="middle" class="mt2" checked>
+            Wortmitte
+          </label><br>
+          <label>
+            <input type="radio" onclick="search()" name="position" value="end" class="mt2"> 
+            Wortende
+          </label>
+        </div>
+        
+        <ul id="words" class="list mv4 pl0"></ul>
+        
+      </div>
+      <div class=""></div> 
+    </main>
+
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js" integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=" crossorigin="anonymous"></script>
+    <script src="https://cdn.gomix.com/7255b425-9039-49bd-a548-3de564650627%2Fwords1.js"></script>
+    
+    
+    <script>
+      function search() {
+        var txt = $('#search-box').val()
+        var position = $("input:radio[name ='position']:checked").val()
+        console.log('search ' + txt + " in " + position);
+        $('#words').html("")
+        if (!txt) return
+        
+        if (position == "start") var regex = new RegExp("^" + txt + ".*", "i")
+        if (position == "middle") var regex = new RegExp(".+" + txt + ".+", "i")
+        if (position == "end") var regex = new RegExp(".*" + txt + "$", "i")
+        
+        var i = 1
+        words.forEach(word => {
+          if (word.match(regex)) {
+            var counter = '<span class="light-silver mr3 w2 fl tr">' + i + '</span>'
+            var entry = '<span class="">' + word + '</span>'
+            $('<li class="mt2">' + counter + entry + '</li>').appendTo('#words');
+            i++
+          }
+        })
+      }
+      
+    </script>
+
+  </body>
+</html>
