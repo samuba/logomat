@@ -36,6 +36,10 @@
           <label>
             <input type="radio" onclick="search()" name="position" value="end" class="mt2"> 
             Wortende
+          </label><br>
+          <label>
+            <input type="radio" onclick="search()" name="position" value="none" class="mt2">
+            Nicht enthalten
           </label>
         </div>
         
@@ -46,7 +50,8 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-2.2.1.min.js" integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=" crossorigin="anonymous"></script>
-    <script src="https://cdn.gomix.com/7255b425-9039-49bd-a548-3de564650627%2Fwords1.js"></script>
+    <!-- <script src="https://cdn.gomix.com/7255b425-9039-49bd-a548-3de564650627%2Fwords1.js"></script> -->
+    <script src="./nomen.js"></script>
     
     
     <script>
@@ -60,6 +65,7 @@
         if (position == "start") var regex = new RegExp("^" + txt + ".*", "i")
         if (position == "middle") var regex = new RegExp(".+" + txt + ".+", "i")
         if (position == "end") var regex = new RegExp(".*" + txt + "$", "i")
+        if (position == "none") var regex = new RegExp("^(?!.*?" + txt + ").*", "i")
         
         var i = 1
         words.forEach(word => {
